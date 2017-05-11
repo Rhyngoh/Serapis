@@ -5,9 +5,7 @@ var connection = require("../config/connection.js");
 
 module.exports = function(app) {
 
-    app.get("/scrape", function(req, res) {
-        res.send("Scrape Camp Eagle using /scrape/campeagle");
-    });
+    
 
     app.get("/scrape/campeagle", function(req, res) {
         request("https://campeagle.org/summer/adventure-for-the-city.php", function(error, response, html) {

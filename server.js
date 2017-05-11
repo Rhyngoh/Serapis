@@ -20,7 +20,11 @@ app.use(express.static("./public"));
 
 require("./routes/html-routes.js")(app);
 require("./routes/campeagle-api-routes.js")(app);
+require("./routes/quarries-api-routes.js")(app);
 
+  app.get("/scrape", function(req, res) {
+        res.send("Scrape Camp Eagle using /scrape/campeagle \nScrape Quarries Camp using /scrape/quarries");
+    });
 
 db.sequelize.sync().then(function(){
   app.listen(PORT, function() {
