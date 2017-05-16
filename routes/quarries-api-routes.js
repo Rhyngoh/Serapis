@@ -4,6 +4,8 @@ var cheerio = require('cheerio');
 var connection = require("../config/connection.js");
 
 module.exports = function(app) {
+
+
     app.get("/scrape/quarries", function(req, res) {
         request("http://www.quarriesrec.org/Default.aspx?tabid=885183", function(error, response, html) {
             if (!error && response.statusCode == 200) {
