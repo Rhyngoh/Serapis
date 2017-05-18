@@ -30,6 +30,7 @@ require("./routes/lake-travis-stem-academy-api-routes.js")(app);
 //require("./routes/acrotex-api-routes.js")(app);
 require("./routes/austin-kula-karate-api-routes.js")(app);
 require("./routes/4-reelz-school-of-film-api-routes.js")(app);
+require("./routes/georgetown-spanish-academy-api-routes.js")(app);
 
   app.get("/scrape", function(req, res) {
         res.send("Scrape Camp Eagle using /scrape/campeagle \n" + 
