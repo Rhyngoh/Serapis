@@ -41,7 +41,8 @@ require("./routes/georgetown-spanish-academy-api-routes.js")(app);
           "Scrape Semillitas De Esapnol using /scrape/semillitas-de-espanol \n" + 
           "Scrape Lake Travis STEM Academy using /scrape/lake-travis-stem-academy \n" +
           "Scrape Austin Kula Karate using /scrape/austin-kula-karate \n" +
-          "Scrape 4 reelz school of film using /scrape/4-reelz-school-of-film/(filmmaking/stop-motion-lego/utubers-unite");
+          "Scrape 4 reelz school of film using /scrape/4-reelz-school-of-film/(filmmaking/stop-motion-lego/utubers-unite \n" + 
+          "Scrape Georgetown Spanish Academy using /scrape/georgetown-spanish-academy");
     });
 
 db.sequelize.sync().then(function(){
