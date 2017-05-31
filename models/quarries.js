@@ -6,7 +6,9 @@ module.exports = function(sequelize, DataTypes){
       primaryKey: true
     },
     campname: DataTypes.STRING,
-    campdescription: DataTypes.STRING,
+    campdescription: {
+      type: DataTypes.TEXT('LONG'),
+    },
     campoptions: DataTypes.STRING,
     registrationstart: DataTypes.STRING,
     registrationend: DataTypes.STRING,
@@ -14,5 +16,8 @@ module.exports = function(sequelize, DataTypes){
     campend: DataTypes.STRING,
     price: DataTypes.STRING,
     link: DataTypes.STRING
+  },
+  {
+    tableName: 'quarries'
   });
 };

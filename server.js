@@ -20,15 +20,15 @@ app.use(express.static("./public"));
 
 require("./routes/html-routes.js")(app);
 require("./routes/campeagle-api-routes.js")(app);
-require("./routes/quarries-api-routes.js")(app);
-require("./routes/rude-mechs-api-routes.js")(app);
+require("./routes/quarries-api-routes.js")(app); //db
+require("./routes/rude-mechs-api-routes.js")(app); //db
 //require("./routes/wee-warriors-api-routes.js")(app);
 require("./routes/axis-enrichment-api-routes.js")(app);
 require("./routes/austin-village-academy-api-routes.js")(app);
 require("./routes/semillitas-de-espanol-api-routes.js")(app);
 require("./routes/lake-travis-stem-academy-api-routes.js")(app);
 //require("./routes/acrotex-api-routes.js")(app);
-require("./routes/austin-kula-karate-api-routes.js")(app);
+require("./routes/austin-kula-karate-api-routes.js")(app); //db
 require("./routes/4-reelz-school-of-film-api-routes.js")(app);
 require("./routes/georgetown-spanish-academy-api-routes.js")(app);
 

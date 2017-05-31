@@ -1,8 +1,11 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var connection = require("../config/connection.js");
+var db = require("../models");
+var bodyparser = require('body-parser');
 
 module.exports = function(app) {
+    app.use(bodyparser.json());
     app.get("/scrape/rude-mechs", function(req, res) {
         request("https://rudemechs.com/offcenterteens/", function(error, response, html) {
             if (!error && response.statusCode == 200) {
@@ -31,6 +34,17 @@ module.exports = function(app) {
                 results.push(metadata);
                 console.log(metadata);
                 res.json(results);
+                db.rudemechs.findOrCreate({where: {title: metadata.title},
+                defaults: {
+                    title: metadata.title,
+                    about: metadata.about,
+                    duration: metadata.duration,
+                    performance: metadata.performance,
+                    location: metadata.location,
+                    who: metadata.who,
+                    cost: metadata.cost,
+                    link: metadata.link
+                }})
             }
 
         });
