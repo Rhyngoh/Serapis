@@ -1,15 +1,24 @@
 module.exports = function(sequelize, DataTypes){
-  return CampEagle = sequelize.define("campeagle", {
+  return campeagle = sequelize.define("campeagle", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     },
-    campname: DataTypes.STRING,
+    camptitle: DataTypes.STRING,
+    agerange: DataTypes.STRING,
+    campdesc: DataTypes.TEXT('LONG'),
+    purpose: DataTypes.STRING,
+    philosophy: DataTypes.TEXT('LONG'),
+    expect: DataTypes.TEXT('LONG'),
+    campname: DataTypes.STRING, 
+    title: DataTypes.STRING,
     session: DataTypes.STRING,
     date: DataTypes.STRING,
     rate: DataTypes.STRING,
-    title: DataTypes.STRING,
     link: DataTypes.STRING
+  },
+  {
+    tableName: 'campeagle'
   });
 };

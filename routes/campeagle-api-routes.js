@@ -1,4 +1,5 @@
-var CampEagle = require("../models").CampEagle;
+var db = require("../models");
+var bodyparser = require('body-parser');
 var request = require('request');
 var cheerio = require('cheerio');
 var connection = require("../config/connection.js");
@@ -6,7 +7,7 @@ var connection = require("../config/connection.js");
 module.exports = function(app) {
 
     
-
+    app.use(bodyparser.json());
     app.get("/scrape/campeagle", function(req, res) {
         request("https://campeagle.org/summer/adventure-for-the-city.php", function(error, response, html) {
             if (!error && response.statusCode == 200) {
@@ -48,6 +49,24 @@ module.exports = function(app) {
                     console.log(metadata);
                 });
                 res.json(results);
+                for(var i = 1; i < results.length; i++){
+                    //find or create, check first to see if link exists else create new
+                    db.campeagle.findOrCreate({where: {link: results[i].link},
+                        defaults: {
+                        camptitle: results[0].camptitle,
+                        agerange: results[0].agerange,
+                        campdesc: results[0].campdesc,
+                        purpose: results[0].purpose,
+                        philosophy: results[0].philosophy,
+                        expect: results[0].expect,
+                        campname: results[i].campname,
+                        title: results[i].title,
+                        session: results[i].session,
+                        date: results[i].date,
+                        rate: results[i].rate,
+                        link: results[i].link}, 
+                    })
+                }
             }
 
         });

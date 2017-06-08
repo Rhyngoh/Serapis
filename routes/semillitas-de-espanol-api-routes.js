@@ -1,10 +1,11 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var connection = require("../config/connection.js");
-
+var db = require('../models');
+var bodyparser = require('body-parser');
 module.exports = function(app) {
 
-
+    app.use(bodyparser.json());
     app.get("/scrape/semillitas-de-espanol", function(req, res) {
         request("http://semillitasespanol.com/vlt64469.htm", function(error, response, html) {
             if (!error && response.statusCode == 200) {
@@ -41,8 +42,8 @@ module.exports = function(app) {
                 var grandematerials = materials.split(". ")[2];
                 var cancellation = $("#pageContent .page-body p").eq(12).text();
                 var location = $(".fboxes .fbox-left .fbox-internal blockquote").children().eq(0).text() + " " + $(".fboxes .fbox-left .fbox-internal blockquote").children().eq(1).text();
-                metadata = {
-                    canta : {
+                var metadata = [{
+                    
                         title: title,
                         program: program1,
                         duration: duration1,
@@ -59,7 +60,7 @@ module.exports = function(app) {
                         cancellation: cancellation,
                         location: location
                     },
-                    arte : {
+                    {
                         title: title,
                         program: program2,
                         duration: duration2,
@@ -76,7 +77,7 @@ module.exports = function(app) {
                         cancellation: cancellation,
                         location: location
                     },
-                    artegrande : {
+                    {
                         title: title,
                         program: program3,
                         duration: duration3,
@@ -92,13 +93,31 @@ module.exports = function(app) {
                         materials: grandematerials,
                         cancellation: cancellation,
                         location: location
-                    }
-                };
+                    }];
                 results.push(metadata);
-                console.log(metadata);
+                //console.log(metadata);
                 res.json(results);
+                //console.log(metadata[0].sidenotes);
+                for(var i = 0; i < metadata.length; i++){
+                    db.semillitas.findOrCreate({where: {program: metadata[i].program},
+                        defaults: {
+                            title: metadata[i].title,
+                            program: metadata[i].program,
+                            duration: metadata[i].duration,
+                            firstchildrate: metadata[i].firstchild,
+                            secondchildrate: metadata[i].secondchild,
+                            thirdchildrate: metadata[i].thirdchild,
+                            youngersiblingrate: metadata[i].youngersiblings,
+                            sidenote1: metadata[i].sidenotes.sidenote1,
+                            sidenote2: metadata[i].sidenotes.sidenote2,
+                            sidenote3: metadata[i].sidenotes.sidenote3,
+                            materials: metadata[i].materials,
+                            cancellation: metadata[i].cancellation,
+                            location: metadata[i].location
+                        }
+                    })
+                }
             }
-
         });
 
 

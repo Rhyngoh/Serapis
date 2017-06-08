@@ -19,18 +19,18 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 require("./routes/html-routes.js")(app);
-require("./routes/campeagle-api-routes.js")(app);
+require("./routes/campeagle-api-routes.js")(app); //db
 require("./routes/quarries-api-routes.js")(app); //db
 require("./routes/rude-mechs-api-routes.js")(app); //db
 //require("./routes/wee-warriors-api-routes.js")(app);
-require("./routes/axis-enrichment-api-routes.js")(app);
-require("./routes/austin-village-academy-api-routes.js")(app);
-require("./routes/semillitas-de-espanol-api-routes.js")(app);
-require("./routes/lake-travis-stem-academy-api-routes.js")(app);
+require("./routes/axis-enrichment-api-routes.js")(app);//website broke
+require("./routes/austin-village-academy-api-routes.js")(app);//db
+require("./routes/semillitas-de-espanol-api-routes.js")(app);//db
+require("./routes/lake-travis-stem-academy-api-routes.js")(app);//db
 //require("./routes/acrotex-api-routes.js")(app);
 require("./routes/austin-kula-karate-api-routes.js")(app); //db
-require("./routes/4-reelz-school-of-film-api-routes.js")(app);
-require("./routes/georgetown-spanish-academy-api-routes.js")(app);
+require("./routes/4-reelz-school-of-film-api-routes.js")(app);//db
+require("./routes/georgetown-spanish-academy-api-routes.js")(app);//db
 
   app.get("/scrape", function(req, res) {
         res.send("Scrape Camp Eagle using /scrape/campeagle \n" + 

@@ -1,8 +1,11 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var connection = require("../config/connection.js");
-
+var db = require("../models");
+var bodyparser = require('body-parser');
 module.exports = function(app) {
+    app.use(bodyparser.json());
+
     app.get("/scrape/lake-travis-stem-academy", function(req, res) {
         request("http://www.ltstemacademy.org/enrichment/camps/art_and_design.html", function(error, response, html) {
             if (!error && response.statusCode == 200) {
@@ -44,6 +47,25 @@ module.exports = function(app) {
                 results.push(metadata);
                 console.log(metadata);
                 res.json(results);
+                db.laketravis.findOrCreate({
+                    where: {registerlink: metadata.registerlink},
+                    defaults: {
+                        title: metadata.title,
+                        age: metadata.age,
+                        start: metadata.start,
+                        end: metadata.end,
+                        cost: metadata.cost,
+                        instructor: metadata.instructor,
+                        description: metadata.description,
+                        schedule1: metadata.schedule.schedule1,
+                        schedule2: metadata.schedule.schedule2,
+                        schedule3: metadata.schedule.schedule3,
+                        schedule4: metadata.schedule.schedule4,
+                        moreinfo: metadata.moreinfo,
+                        contact: metadata.contact,
+                        registerlink: metadata.registerlink
+                    }
+                })
             }
 
         });
